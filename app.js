@@ -2,9 +2,11 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
 const path = require("path");
+var cors = require('cors');
+app.use(cors())
 
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config({ path: "backend/config/config.env" });
+  require("dotenv").config({ path: "config/config.env" });
 }
 
 //Using Middleware
@@ -20,10 +22,10 @@ const user = require("./routes/userRoute");
 app.use("/api/v1", post);
 app.use("/api/v1", user);
 
-app.use(express.static(path.join(__dirname, "../frontend/build")));
+// app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+// });
 
 module.exports = app;
